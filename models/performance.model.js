@@ -11,7 +11,8 @@ const yearSchema = new Schema({
 });
 
 const rendimientoSchema = new Schema({
-    years: [yearSchema]
+    years: [yearSchema],
+    name: {type: String, required: false}
 });
 
 module.exports = mongoose.model('Rendimiento', rendimientoSchema);

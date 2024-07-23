@@ -6,9 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req,res) => {
+app.use(require('./routes'));
+
+/*app.get('/', (req,res) => {
     res.send('Hola, esto es una prueba');
-});
+}); */
 
 
 module.exports = app;
