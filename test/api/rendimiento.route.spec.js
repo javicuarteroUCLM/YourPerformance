@@ -40,7 +40,7 @@ describe("Pruebas sobre la API de rendimiento", () => {
       name: "test rendimiento",
     };
     const wrongRendimiento = {
-      years: [{ hola: 2020 }, { year: 2021 }],
+      years: [{ year: 2020 }, { year: 2021 }],
       name: "test rendimiento",
     };
     afterAll(async () => {
