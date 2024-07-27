@@ -124,14 +124,12 @@ describe("Pruebas sobre la API de rendimiento", () => {
         expect(response.status).toBe(200);
         expect(response.headers["content-type"]).toContain("json");
     });
+
+    it ("Se elimina correctamente el rendimiento/informe", async () => {
+        expect(response.body._id).toBeDefined();
+    
+        const foundRedimiento = await Rendimiento.findById(rendimiento._id);
+        expect(foundRedimiento).toBeNull();
+      });
   });
-
-  it ("Se elimina correctamente el rendimiento/informe", async () => {
-    expect(response.body._id).toBeDefined();
-
-    const foundRedimiento = await Rendimiento.findById(rendimiento._id);
-    expect(foundRedimiento).toBeNull();
-  });
-
-
 });
