@@ -8,3 +8,9 @@ server.listen(3000);
 server.on('listening', () => {
     console.log('El servidor escuchando en el puerto 3000');
 });
+
+server.on('error', (error) => {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+});
