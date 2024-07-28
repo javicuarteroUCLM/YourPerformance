@@ -5,16 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Observa la evolución de tus notas a lo largo del tiempo</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel = "stylesheet" href = "styles.css">
+        
+        
     </head>
 
     <body>
         <h1>Introduce tus datos</h1>
         <form id="formularioDatos">
-            <!--Crear formulario-->
+            <label class="form-title">Cantidad de cursos a analizar:</label>
+        <select class="select-options">
+            <option disabled selected value> -- Selecciona una opción -- </option>
+            <option value="1">Un curso</option>
+            <option value="2">Últimos dos cursos</option>
+            <option value="3">Últimos tres cursos</option>
+            <option value="4">Últimos cuatro cursos</option>
+        </select>
         </form>
         <canvas id="graficoRendimiento"></canvas>
         <script>
             
         </script>
+        <div class="footer">
+            <p>©️ Desarrollado por Javier Cuartero</p>
+        </div>
     </body>
 </html>
