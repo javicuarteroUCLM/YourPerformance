@@ -14,14 +14,19 @@
         <h1>Introduce tus datos</h1>
         <form id="formularioDatos">
             <label class="form-title">Cantidad de cursos a analizar:</label>
-        <select class="select-options">
+        <select id="selectCursos" class="select-options">
             <option disabled selected value> -- Selecciona una opción -- </option>
             <option value="1">Un curso</option>
             <option value="2">Últimos dos cursos</option>
             <option value="3">Últimos tres cursos</option>
             <option value="4">Últimos cuatro cursos</option>
         </select>
+        <div id="asignaturasInputs">
+            <!-- Campos de entrada se generarán aquí -->
+        </div>
+        <button type="submit">Enviar</button>
         </form>
+        <script src="scripts.js"></script>
         <canvas id="graficoRendimiento"></canvas>
         <script>
             
