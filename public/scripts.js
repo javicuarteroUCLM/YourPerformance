@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectCursos = document.getElementById('selectCursos');
     const asignaturasInputs = document.getElementById('asignaturasInputs');
     const formularioDatos = document.getElementById('formularioDatos');
-    const graficoRendimiento = document.getElementById('graficoRendimiento');
+    const graficoRendimiento = document.getElementById('graficoRendimiento').getContext('2d');
     let chart;
 
+    console.log('Script cargado y DOMContentLoaded event capturado');
+
     selectCursos.addEventListener('change', function() {
-        asignaturasInputs.innerHTML = ''; // Limpia los inputs previos
+        asignaturasInputs.innerHTML = ''; // Limpia los inputs introducidos previamente
         const numCursos = parseInt(this.value);
         
         if (numCursos) {
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 notasDiv.classList.add('notas-asignaturas');
                 cursoDiv.appendChild(notasDiv);
 
-                // Evento para generar inputs de notas
+                // Evento que genera la entrada manual de notas
                 numAsignaturasInput.addEventListener('change', function() {
                     notasDiv.innerHTML = ''; // Limpia los inputs de notas previos
                     const numAsignaturas = parseInt(this.value);
@@ -62,12 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
     formularioDatos.addEventListener('submit', async function(event) {
         event.preventDefault(); // Evitar el comportamiento por defecto del formulario
 
+        console.log('Submit formulario capturado');
+
         const formData = new FormData(formularioDatos);
         const data = {};
 
         formData.forEach((value, key) => {
             data[key] = value;
         });
+
+        data.cantidadCursos = selectCursos.value;
+
+        console.log('Datos enviados:', data);
 
         try {
             const response = await fetch('/api/rendimientos', {
@@ -85,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
             console.log('Respuesta del servidor:', result);
 
-            // Aquí puedes manejar la respuesta del servidor y generar el gráfico
             generarGrafico(result);
         } catch (error) {
             console.error('Error:', error);
@@ -110,18 +117,34 @@ document.addEventListener('DOMContentLoaded', () => {
         chart = new Chart(graficoRendimiento, {
             type: 'line',
             data: {
-                labels: data.labels, // Aquí pones las etiquetas para el gráfico
+                labels: data.labels, // Etiquetas para el gráfico
                 datasets: [{
                     label: 'Rendimiento',
-                    data: data.values, // Aquí pones los valores para el gráfico
+                    data: data.values, // Valores para el gráfico
+                    fill: false,
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
+                    tension: 0.1,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointBorderColor: 'rgba(75, 192, 192, 1)',
+                    pointRadius: 5,
                 }]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Notas'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Cursos'
+                        }
                     }
                 }
             }

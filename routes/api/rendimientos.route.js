@@ -13,7 +13,12 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    console.log('Datos recibidos del frontend:', req.body);
+
     const { cantidadCursos, ...asignaturas } = req.body;
+
+    const numCursos= parseInt(cantidadCursos,10);
+    console.log('Cantidad de cursos:', numCursos);
 
     // Procesa los datos recibidos
     const datosGrafico = {
@@ -29,22 +34,16 @@ router.post("/", async (req, res) => {
         }
       });
       const promedio = notasCurso.reduce((a, b) => a + b, 0) / notasCurso.length;
-      datosGrafico.labels.push(`Curso ${i}`);
+      datosGrafico.labels.push(i); // Etiquetas numéricas ascendentes
       datosGrafico.values.push(promedio);
     }
+    //datosGrafico= { labels: [ 1, 2, 3 ], values: [ 2, 8, 7 ] };
+    console.log('Datos enviados al frontend:', datosGrafico);
 
     res.status(201).json(datosGrafico);
   } catch (error) {
     res.status(500).json({ error: "Ha ocurrido un error" });
   }
-  /*try {
-    const newRendimiento = await Rendimiento.create(req.body);
-    res.json(newRendimiento);
-  } catch (error) {
-    res.status(500).json({ error: "Ha ocurrido un error" });
-  }*/
-
- 
 });
 
 router.put("/:rendimientoId", async (req, res) => {
