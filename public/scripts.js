@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const asignaturasInputs = document.getElementById('asignaturasInputs');
     const formularioDatos = document.getElementById('formularioDatos');
     const graficoRendimiento = document.getElementById('graficoRendimiento').getContext('2d');
+    const verAnalisisBtn = document.getElementById('verAnalisisBtn');
     let chart;
 
     console.log('Script cargado y DOMContentLoaded event capturado');
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const notaInput = document.createElement('input');
                         notaInput.type = 'number';
                         notaInput.min = 0;
+                        notaInput.step = 0.001;
                         notaInput.max = 10;
                         notaInput.placeholder = 'Nota';
                         notaInput.name = `curso${i + 1}Asignatura${j + 1}`;
@@ -54,7 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         notasDiv.appendChild(notaInput);
                         notasDiv.appendChild(document.createElement('br'));
                     }
+
                 });
+
+                const inputs = asignaturasInputs.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.addEventListener('input', function() {
+                            checkInputs();
+                        });
+                    });
 
                 asignaturasInputs.appendChild(cursoDiv);
             }
@@ -98,6 +108,19 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
         }
     });
+
+    function checkInputs() {
+        const inputs = asignaturasInputs.querySelectorAll('input');
+        let isAnyInputFilled = false;
+
+        inputs.forEach(input => {
+            if (input.value.trim() !== '') {
+                isAnyInputFilled = true;
+            }
+        });
+
+        verAnalisisBtn.disabled = !isAnyInputFilled;
+    }
 
     function obtenerDescripcionCurso(indice, totalCursos) {
         if (indice === 0) {
