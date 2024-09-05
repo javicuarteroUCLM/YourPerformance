@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 
     // Procesa los datos recibidos
     const datosGrafico = {
-      labels: [],
+      labels: ["Curso más reciente","3º","2º", "Curso más antiguo"], 
       values: []
     };
 
@@ -34,10 +34,12 @@ router.post("/", async (req, res) => {
         }
       });
       const promedio = notasCurso.reduce((a, b) => a + b, 0) / notasCurso.length;
-      datosGrafico.labels.push(i); // Etiquetas numéricas ascendentes
+      //datosGrafico.labels.push(i); // Etiquetas numéricas ascendentes
       datosGrafico.values.push(promedio);
     }
-    //datosGrafico= { labels: [ 1, 2, 3 ], values: [ 2, 8, 7 ] };
+
+    datosGrafico.labels.reverse();
+    datosGrafico.values.reverse();
     console.log('Datos enviados al frontend:', datosGrafico);
 
     res.status(201).json(datosGrafico);

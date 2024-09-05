@@ -6,70 +6,110 @@ document.addEventListener('DOMContentLoaded', () => {
     const verAnalisisBtn = document.getElementById('verAnalisisBtn');
     let chart;
 
+    let notasGuardadas = {};
+
     console.log('Script cargado y DOMContentLoaded event capturado');
 
     selectCursos.addEventListener('change', function() {
-        asignaturasInputs.innerHTML = ''; // Limpia los inputs introducidos previamente
-        const numCursos = parseInt(this.value);
-        
+        generarCamposCursos();
+    });
+
+    function generarCamposCursos() {
+        asignaturasInputs.innerHTML = ''; // Limpia los inputs anteriores
+        const numCursos = parseInt(selectCursos.value);
+
         if (numCursos) {
             for (let i = 0; i < numCursos; i++) {
                 const cursoDiv = document.createElement('div');
                 cursoDiv.classList.add('curso-section');
-                
+
                 const cursoLabel = document.createElement('h3');
                 cursoLabel.textContent = `Notas de las asignaturas del ${obtenerDescripcionCurso(i, numCursos)}:`;
                 cursoDiv.appendChild(cursoLabel);
+                cursoLabel.classList.add('curso-label');
 
                 const numAsignaturasLabel = document.createElement('label');
-                numAsignaturasLabel.textContent = `Nº de asignaturas del ${obtenerDescripcionCurso(i, numCursos)}:`;
+                numAsignaturasLabel.textContent = `   - Nº de asignaturas del ${obtenerDescripcionCurso(i, numCursos)}:`;
                 cursoDiv.appendChild(numAsignaturasLabel);
+                numAsignaturasLabel.classList.add('asignatura-label');
 
                 const numAsignaturasInput = document.createElement('input');
                 numAsignaturasInput.type = 'number';
                 numAsignaturasInput.min = 1;
+                numAsignaturasInput.max = 20;
                 numAsignaturasInput.placeholder = 'Número de asignaturas';
                 numAsignaturasInput.classList.add('input-num-asignaturas');
+                numAsignaturasInput.value = notasGuardadas[`curso${i + 1}`] ? notasGuardadas[`curso${i + 1}`].numAsignaturas : ''; // Mantener el valor
+
                 cursoDiv.appendChild(numAsignaturasInput);
 
                 const notasDiv = document.createElement('div');
                 notasDiv.classList.add('notas-asignaturas');
                 cursoDiv.appendChild(notasDiv);
 
-                // Evento que genera la entrada manual de notas
+                // Si ya hay asignaturas guardadas, generar los campos automáticamente
+                if (numAsignaturasInput.value) {
+                    generarNotasAsignaturas(notasDiv, i, parseInt(numAsignaturasInput.value));
+                }
+
                 numAsignaturasInput.addEventListener('change', function() {
-                    notasDiv.innerHTML = ''; // Limpia los inputs de notas previos
-                    const numAsignaturas = parseInt(this.value);
-
-                    for (let j = 0; j < numAsignaturas; j++) {
-                        const notaLabel = document.createElement('label');
-                        notaLabel.textContent = `Asignatura ${j + 1}: `;
-                        const notaInput = document.createElement('input');
-                        notaInput.type = 'number';
-                        notaInput.min = 0;
-                        notaInput.step = 0.001;
-                        notaInput.max = 10;
-                        notaInput.placeholder = 'Nota';
-                        notaInput.name = `curso${i + 1}Asignatura${j + 1}`;
-
-                        notasDiv.appendChild(notaLabel);
-                        notasDiv.appendChild(notaInput);
-                        notasDiv.appendChild(document.createElement('br'));
-                    }
-
+                    guardarNotasCurso(i); // Guardar notas cada vez que cambie el número de asignaturas
+                    generarNotasAsignaturas(notasDiv, i, parseInt(this.value));
                 });
-
-                const inputs = asignaturasInputs.querySelectorAll('input');
-                    inputs.forEach(input => {
-                        input.addEventListener('input', function() {
-                            checkInputs();
-                        });
-                    });
 
                 asignaturasInputs.appendChild(cursoDiv);
             }
         }
-    });
+    }
+
+    // Generar campos de notas para cada asignatura
+    function generarNotasAsignaturas(notasDiv, cursoIndex, numAsignaturas) {
+        notasDiv.innerHTML = ''; // Limpia los inputs de notas previos
+
+        const notasExistentes = notasGuardadas[`curso${cursoIndex + 1}`] ? notasGuardadas[`curso${cursoIndex + 1}`].notas : {};
+
+        for (let j = 0; j < numAsignaturas; j++) {
+            const notaLabel = document.createElement('label');
+            notaLabel.textContent = `Asignatura ${j + 1}: `;
+            const notaInput = document.createElement('input');
+            notaInput.type = 'number';
+            notaInput.min = 0;
+            notaInput.step = 0.001;
+            notaInput.max = 10;
+            notaInput.placeholder = 'Nota';
+            notaInput.name = `curso${cursoIndex + 1}Asignatura${j + 1}`;
+
+            // Rellenar con las notas existentes si están disponibles
+            if (notasExistentes[`Asignatura${j + 1}`]) {
+                notaInput.value = notasExistentes[`Asignatura${j + 1}`];
+            }
+
+            notasDiv.appendChild(notaLabel);
+            notasDiv.appendChild(notaInput);
+            notaLabel.classList.add('nota-label');
+            notasDiv.appendChild(document.createElement('br'));
+        }
+        checkInputs();
+    }
+
+    // Guarda las notas del curso actual en el objeto notasGuardadas
+    function guardarNotasCurso(cursoIndex) {
+        const notasDiv = asignaturasInputs.querySelectorAll('.curso-section')[cursoIndex].querySelector('.notas-asignaturas');
+        const inputs = notasDiv.querySelectorAll('input');
+
+        const notas = {};
+        inputs.forEach((input, index) => {
+            if (input.value) {
+                notas[`Asignatura${index + 1}`] = input.value;
+            }
+        });
+
+        notasGuardadas[`curso${cursoIndex + 1}`] = {
+            numAsignaturas: inputs.length,
+            notas: notas
+        };
+    }
+
 
     formularioDatos.addEventListener('submit', async function(event) {
         event.preventDefault(); // Evitar el comportamiento por defecto del formulario
@@ -142,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data: {
                 labels: data.labels, // Etiquetas para el gráfico
                 datasets: [{
-                    label: 'Rendimiento',
+                    label: 'Rendimiento promedio por curso',
                     data: data.values, // Valores para el gráfico
                     fill: false,
                     borderColor: 'rgba(75, 192, 192, 1)',
