@@ -13,34 +13,33 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    console.log('Datos recibidos del frontend:', req.body);
+    console.log("Datos recibidos del frontend:", req.body);
 
     const { cantidadCursos, ...asignaturas } = req.body;
 
-    const numCursos= parseInt(cantidadCursos,10);
-    console.log('Cantidad de cursos:', numCursos);
+    const numCursos = parseInt(cantidadCursos, 10);
+    console.log("Cantidad de cursos:", numCursos);
 
-    // Procesa los datos recibidos
     const datosGrafico = {
-      labels: ["Curso más reciente","3º","2º", "Curso más antiguo"], 
-      values: []
+      //labels: ["Curso más reciente","3º","2º", "Curso más antiguo"], /*Me lo he llevado a public/scritps.js para poder manejar el texto según el dispositivo*/
+      values: [],
     };
 
     for (let i = 1; i <= cantidadCursos; i++) {
       const notasCurso = [];
-      Object.keys(asignaturas).forEach(key => {
+      Object.keys(asignaturas).forEach((key) => {
         if (key.startsWith(`curso${i}Asignatura`)) {
           notasCurso.push(parseFloat(asignaturas[key]));
         }
       });
-      const promedio = notasCurso.reduce((a, b) => a + b, 0) / notasCurso.length;
-      //datosGrafico.labels.push(i); // Etiquetas numéricas ascendentes
+      const promedio =
+        notasCurso.reduce((a, b) => a + b, 0) / notasCurso.length;
       datosGrafico.values.push(promedio);
     }
 
-    datosGrafico.labels.reverse();
+    //datosGrafico.labels.reverse();
     datosGrafico.values.reverse();
-    console.log('Datos enviados al frontend:', datosGrafico);
+    console.log("Datos enviados al frontend:", datosGrafico);
 
     res.status(201).json(datosGrafico);
   } catch (error) {
@@ -62,14 +61,14 @@ router.put("/:rendimientoId", async (req, res) => {
 });
 
 router.delete("/:rendimientoId", async (req, res) => {
-    try {
-        const rendimientoDelete = await Rendimiento.findByIdAndDelete(req.params.rendimientoId);
-        res.json(rendimientoDelete);
-        
-    } catch (error) {
-        res.status(500).json({ error: "Ha ocurrido un error" });
-        
-    }
+  try {
+    const rendimientoDelete = await Rendimiento.findByIdAndDelete(
+      req.params.rendimientoId
+    );
+    res.json(rendimientoDelete);
+  } catch (error) {
+    res.status(500).json({ error: "Ha ocurrido un error" });
+  }
 });
 
 module.exports = router;

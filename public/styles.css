@@ -32,7 +32,6 @@ body {
 }
 
 h1 {
-  /*text-align: center;*/
   margin-left: 100px;
 }
 
@@ -45,57 +44,52 @@ h1 {
   margin-left: 71px;
 }
 
-.select-options, .select-options option {
+.select-options,
+.select-options option {
   font-size: 18px;
   display: inline-block;
   vertical-align: middle;
 }
 
-/* Estilo para el formulario */
 #formularioDatos {
-    margin: 20px; 
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 10px; /* Bordes redondos */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
-    margin-bottom: 10px;
-    font-size: 20px;
-    margin-left: 70px;
-    font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 20px;
+  margin-left: 70px;
+  font-weight: bold;
 }
-
-
 
 .curso-section {
-    margin-bottom: 20px; /* Margen inferior entre secciones */
-    margin-left: 110px;
+  margin-bottom: 20px;
+  margin-left: 110px;
 }
 
-/* Estilo para las etiquetas de entrada */
 .curso-section label {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
-/* Estilo para los inputs */
-.input-num-asignaturas, .notas-asignaturas input {
-    margin-bottom: 10px;
-    padding: 5px;
-    width: 50px;
+.input-num-asignaturas,
+.notas-asignaturas input {
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 50px;
 }
 
-/* Estilo para la sección de notas de asignaturas */
 .notas-asignaturas {
-    margin-top: 10px;
-    padding-left: 20px; /*Tabulación */
+  margin-top: 10px;
+  padding-left: 20px;
 }
 
-/* Estilo para cada fila de asignatura */
 .notas-asignaturas label {
-    display: inline-block;
-    width: 150px;
+  display: inline-block;
+  width: 150px;
 }
 
 .asignatura-label {
@@ -106,127 +100,207 @@ h1 {
   margin-left: 150px;
 }
 
-
-
-
-
-
-
-.footer{
+.footer {
   background: lightgrey;
-  padding:10px 0px;
-  font-family: 'Play', sans-serif;
-  text-align:center;
-  }
-  
-  .footer .row{
-  width:100%;
-  margin:1% 0%;
-  padding:0.6% 0%;
-  color:gray;
-  font-size:0.8em;
-  }
-  
-  .footer .row a{
-  text-decoration:none;
-  color:gray;
-  transition:0.5s;
-  }
-  
-  
-  
-  .footer .row ul{
-  width:100%;
-  }
-  
-  .footer .row ul li{
-  display:inline-block;
-  margin:0px 30px;
-  }
-  
-  .footer .row a i{
-  font-size:2em;
-  margin:0% 1%;
-  }
-  
-  @media (max-width:720px){
-  .footer{
-  text-align:left;
-  padding:5%;
-  }
-  .footer .row ul li{
-  display:block;
-  margin:10px 0px;
-  text-align:left;
-  }
-  .footer .row a i{
-  margin:0% 3%;
-  }
-  }
-
-  .icon {
-    color: black; /* Color inicial */
-    margin: 10px;
+  padding: 10px 0px;
+  font-family: "Play", sans-serif;
+  text-align: center;
 }
 
+.footer .row {
+  width: 100%;
+  margin: 1% 0%;
+  padding: 0.6% 0%;
+  color: gray;
+  font-size: 0.8em;
+}
 
-  .icon-email:hover i {
-    color: white;
+.footer .row a {
+  text-decoration: none;
+  color: gray;
+  transition: 0.5s;
+}
+
+.footer .row ul {
+  width: 100%;
+}
+
+.footer .row ul li {
+  display: inline-block;
+  margin: 0px 30px;
+}
+
+.footer .row a i {
+  font-size: 2em;
+  margin: 0% 1%;
+}
+
+@media (max-width: 720px) {
+  .footer {
+    text-align: left;
+    padding: 5%;
   }
-  .icon-linkedin:hover i{
-    color: #007bb5;
+  .footer .row ul li {
+    display: block;
+    margin: 10px 0px;
+    text-align: left;
   }
+  .footer .row a i {
+    margin: 0% 3%;
+  }
+}
+
+.icon {
+  color: black;
+  margin: 10px;
+}
+
+.icon-email:hover i {
+  color: white;
+}
+
+.icon-linkedin:hover i {
+  color: #007bb5;
+}
 
 .grafico-container {
   display: flex;
-  justify-content: center; 
-  padding: 0 30px; 
+  justify-content: center;
+  padding: 0 30px;
   box-sizing: border-box;
-  }
+}
 
-
-notas-medias-container {
-    margin-right: 18px; /* Espacio entre las notas y el gráfico */
-    text-align: left;
-    margin-top: 160px;
-} 
+.notas-medias-container {
+  margin-right: 18px;
+  text-align: left;
+  margin-top: 20px;
+}
 
 .notas-medias-container ul {
-    list-style-type: none; 
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .notas-medias-container li {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    position: relative;
-    padding-left: 25px;
-} 
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+  margin-top: 20px;
+}
 
 .notas-medias-container li::before {
-  content: ''; 
-  width: 15px; 
-  height: 15px; 
-  background-color: var(--color-cuadradito); /* Variable color del javascript */
-  position: absolute; 
-  left: 0; 
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: var(--color-cuadradito);
+  position: absolute;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 
-
-
-
 .grafico {
   display: block;
-  margin: 0 auto; 
-  padding: 0; 
-  max-width: calc(100% - 60px); 
-  width: 70%; 
-  height: auto; 
-  box-sizing: border-box; 
+  margin: 0 auto;
+  padding: 0;
+  max-width: calc(100% - 60px);
+  width: 55%;
+  height: auto;
+  box-sizing: border-box;
 }
 
+/* Adaptaciones para tablets (pantallas medianas) */
+@media (max-width: 1024px) {
+  h1 {
+    margin-left: 50px;
+    font-size: 22px;
+  }
 
+  .form-title {
+    font-size: 18px;
+    margin-left: 50px;
+  }
 
+  .curso-section {
+    margin-left: 60px;
+  }
+
+  .asignatura-label,
+  .nota-label {
+    margin-left: 60px;
+  }
+
+  .notas-medias-container {
+    margin-right: 0;
+    margin-top: 0;
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .grafico-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .grafico {
+    width: 80%;
+    height: auto;
+  }
+
+  .notas-medias-container li {
+    font-size: 16px;
+  }
+}
+
+/* Adaptaciones para móviles (pantallas pequeñas) */
+@media (max-width: 768px) {
+  h1 {
+    margin-left: 20px;
+    font-size: 20px;
+  }
+
+  .form-title {
+    font-size: 16px;
+    margin-left: 20px;
+  }
+
+  .curso-section {
+    margin-left: 30px;
+  }
+
+  .asignatura-label,
+  .nota-label {
+    margin-left: 30px;
+  }
+
+  .grafico-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .notas-medias-container {
+    width: 100%;
+  }
+
+  .notas-medias-container li {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .grafico {
+    width: 100%;
+    height: auto;
+  }
+  .grafico-container canvas {
+    max-width: 100%;
+    height: auto;
+    padding: 10px 0;
+  }
+  .chartjs-render-monitor {
+    margin: 0 auto;
+  }
+}
