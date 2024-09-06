@@ -177,12 +177,46 @@ h1 {
     color: #007bb5;
   }
 
-  .grafico-container {
-    display: flex;
-    justify-content: center; 
-    padding: 0 30px; 
-    box-sizing: border-box;
+.grafico-container {
+  display: flex;
+  justify-content: center; 
+  padding: 0 30px; 
+  box-sizing: border-box;
   }
+
+
+notas-medias-container {
+    margin-right: 18px; /* Espacio entre las notas y el gráfico */
+    text-align: left;
+    margin-top: 160px;
+} 
+
+.notas-medias-container ul {
+    list-style-type: none; 
+    padding: 0;
+}
+
+.notas-medias-container li {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+} 
+
+.notas-medias-container li::before {
+  content: ''; 
+  width: 15px; 
+  height: 15px; 
+  background-color: var(--color-cuadradito); /* Variable color del javascript */
+  position: absolute; 
+  left: 0; 
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
 
 .grafico {
   display: block;

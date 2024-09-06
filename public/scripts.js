@@ -173,6 +173,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generarGrafico(data) {
+
+        //FUNCIONALIDAD MOSTRAR NOTAS MEDIAS AL LADO DEL GRAFICO
+        const notasMediasLista = document.getElementById('notasMediasLista');
+        notasMediasLista.innerHTML = '';
+
+        const coloresPuntos = [
+            'rgba(255, 99, 132, 1)',  // Rojo
+            'rgba(0, 255, 0, 1)',  // Verde
+            'rgba(153, 102, 255, 1)', // Púrpura
+            'rgba(255, 159, 64, 1)'   // Naranja
+        ];
+
+
+        data.values.forEach((notaMedia, index) => {
+            const li = document.createElement('li');
+            li.textContent = `Curso ${index + 1}: ${notaMedia.toFixed(2)}`;
+
+            li.style.setProperty('--color-cuadradito', coloresPuntos[index % coloresPuntos.length]);
+
+            notasMediasLista.appendChild(li);
+        });
+
         if (chart) {
             chart.destroy();
         }
@@ -187,9 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     fill: false,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     tension: 0.1,
-                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointBackgroundColor: coloresPuntos.slice(0, data.values.length),
                     pointBorderColor: 'rgba(75, 192, 192, 1)',
-                    pointRadius: 5,
+                    pointRadius: 8,
                 }]
             },
             options: {
@@ -201,12 +223,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         title: {
                             display: true,
                             text: 'Notas'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                        },
+                        border: {
+                            color: 'black',
                         }
                     },
                     x: {
                         title: {
                             display: true,
                             text: 'Cursos'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                        },
+                        border: {
+                            color: 'black',
                         }
                     }
                 }
